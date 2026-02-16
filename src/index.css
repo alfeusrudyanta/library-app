@@ -189,10 +189,15 @@
 /* end of shadcn theme */
 /* ---------------------------------------- */
 
-body {
-  @apply;
+@layer utilities {
+  .font-quicksand {
+    font-family: var(--font-quicksand);
+  }
+}
 
-  font-family: var(--font-quicksand);
+html,
+body {
+  @apply font-quicksand overflow-x-hidden bg-white;
 }
 
 img {
