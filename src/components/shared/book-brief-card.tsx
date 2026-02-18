@@ -1,0 +1,52 @@
+import { useGetBook } from '@/hook/use-books';
+import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+type BookBriefCardProps = {
+  id: number;
+};
+
+export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
+  const { data } = useGetBook(id);
+
+  const imgSrc = data?.data.coverImage || '/images/book-no-cover.jpg';
+
+  return (
+    <div className='group flex flex-col overflow-hidden rounded-xl bg-white shadow-[0_0_20px_0_#CBCACA40]'>
+      {/* Images */}
+      <Link to={`/book/${id}`}>
+        <div className='flex aspect-224/336 items-center justify-between overflow-hidden'>
+          <img
+            src={imgSrc}
+            alt={data?.data.title}
+            loading='lazy'
+            className='size-full object-cover object-center transition-all group-hover:scale-105'
+          />
+        </div>
+      </Link>
+
+      {/* Details */}
+      <div className='flex flex-col gap-0.5 p-3 md:gap-1 md:p-4'>
+        <Link to={`/book/${id}`}>
+          <span className='group-hover:text-primary-300 text-sm-bold md:text-lg-bold tracking-[-0.02em] text-neutral-900 md:tracking-[-0.03em]'>
+            {data?.data.title}
+          </span>
+        </Link>
+
+        <Link to={`/author/${data?.data.authorId}`}>
+          <span className='text-sm-medium md:text-md-medium tracking-[-0.03em] text-neutral-700'>
+            {data?.data.author.name}
+          </span>
+        </Link>
+
+        <div className='flex items-center gap-0.5'>
+          <Star className='size-6 fill-[#FFAB0D] stroke-0' />
+
+          <span className='text-sm-semibold md:text-md-semibold tracking-[-0.02em] text-neutral-900'>
+            {data?.data.rating.toFixed(1)}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};

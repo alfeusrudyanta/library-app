@@ -1,14 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
+import type { User } from '@/types/api';
 
-type ProfileSlice = {
-  id: number;
-  name: string;
-  email: string;
-  phone: null | string;
-  profilePhoto: null | string;
-  role: 'USER' | 'ADMIN';
-};
+type ProfileSlice = Omit<User, 'createdAt'>;
 
 const initialState: ProfileSlice = {
   id: 0,
