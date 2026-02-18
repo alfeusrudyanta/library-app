@@ -33,7 +33,7 @@ export const useGetReviewsBook = (bookId: number) => {
       const params = {
         bookId,
         page: pageParam,
-        limit: 10,
+        limit: 6,
       };
 
       return apiReviews.getReviewsBook(params);

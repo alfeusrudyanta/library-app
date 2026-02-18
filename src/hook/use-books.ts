@@ -55,7 +55,7 @@ export const useGetBooksRecommended = (data: GetBooksRecommendedParams) => {
       const params = {
         ...data,
         page: pageParam,
-        limit: 10,
+        limit: 5,
       };
 
       return apiBooks.getBooksRecommended(params);

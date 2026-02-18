@@ -18,6 +18,7 @@ import { CategoryPage } from '@/features/user/category-page';
 import { MyCartPage } from '@/features/user/my-cart-page';
 import { SuccessPage } from '@/features/user/success-page';
 import { ProfilePage } from '@/features/user/profile-page';
+import { CheckoutPage } from '@/features/user/checkout-page';
 
 export const App = () => {
   return (
@@ -41,9 +42,10 @@ export const App = () => {
           {/* Other */}
           <Route element={<UserRoute />}>
             <Route path='/book/:id' element={<BookPage />} />
-            <Route path='/author/:id' element={<AuthorPage />} />
             <Route path='/category' element={<CategoryPage />} />
+            <Route path='/author/:id' element={<AuthorPage />} />
             <Route path='/my-cart' element={<MyCartPage />} />
+            <Route path='/checkout' element={<CheckoutPage />} />
             <Route path='/success' element={<SuccessPage />} />
             <Route path='/profile' element={<ProfilePage />} />
           </Route>

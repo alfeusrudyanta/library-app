@@ -1,6 +1,19 @@
-import type { ApiResponse, BookCart, BookDetail } from '@/types/api';
+import type { ApiResponse, BookDetail } from '@/types/api';
 
-export type GetCartResponse = ApiResponse<BookCart>;
+export type GetCartResponse = ApiResponse<{
+  cartId: number;
+  items: {
+    id: number;
+    cartId: number;
+    bookId: number;
+    createdAt: string;
+    book: Omit<BookDetail, 'author' | 'category'> & {
+      author: { id: number; name: string };
+      category: { id: number; name: string };
+    };
+  }[];
+  itemCount: number;
+}>;
 
 export type DeleteCartResponse = ApiResponse<{ cartId: number }>;
 

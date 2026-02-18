@@ -23,7 +23,7 @@ export const apiReviews = {
     const { bookId, ...pagination } = params;
 
     const response = await AxiosInstance.get<GetReviewsBookResponse>(
-      `/api/reviews/${bookId}`,
+      `/api/reviews/book/${bookId}`,
       { params: pagination }
     );
 

@@ -264,16 +264,3 @@ export type LoanStats = {
   returned: number;
   total: number;
 };
-
-/* Cart */
-
-export type BookCart = {
-  id: number;
-  bookId: number;
-  addedAt: string;
-  book: (Omit<BookDetail, 'author' | 'category'> & {
-    author: { id: number; name: string };
-    category: { id: number; name: string };
-  })[];
-  itemCount: number;
-};
