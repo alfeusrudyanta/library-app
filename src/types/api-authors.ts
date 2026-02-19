@@ -33,7 +33,12 @@ export type GetAuthorBooksParamsRequest = {
   id: number;
 } & PaginationParams;
 
-export type GetAuthorBooksResponse = ApiResponse<PaginatedBooks<BookDetail>>;
+export type GetAuthorBooksResponse = ApiResponse<
+  {
+    author: Omit<Author, 'createdAt' | 'updatedAt'>;
+    bookCount: number;
+  } & PaginatedBooks<BookDetail>
+>;
 
 export type PutAuthorRequest = { name: string; bio: string };
 

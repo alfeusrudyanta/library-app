@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { ReviewCard } from './components/review-card';
 import { BookInfo } from './components/book-info';
 import { Section } from '@/components/shared/section';
+import { LoadingSpinner } from '@/components/shared/loading-spinner';
 
 export const BookPage = () => {
   const { id } = useParams();
@@ -78,6 +79,12 @@ export const BookPage = () => {
                 <ReviewCard key={'review-' + review.id} review={review} />
               ))}
             </div>
+
+            {bookReview.isFetchingNextPage && (
+              <div className='col-span-1 flex items-center justify-center md:col-span-2'>
+                <LoadingSpinner />
+              </div>
+            )}
 
             {bookReviewData.length === 0 && (
               <span className='text-md-semibold md:text-lg-semibold text-center text-neutral-600'>

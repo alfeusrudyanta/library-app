@@ -14,18 +14,16 @@ import { AuthorCard } from './components/author-card';
 import { LoadingSpinner } from '@/components/shared/loading-spinner';
 
 export const HomePage = () => {
-  const recommendedBooks = useGetBooksRecommended({ by: 'popular' });
+  const recommendedBooksQuery = useGetBooksRecommended({ by: 'popular' });
   const popularAuthors = useGetAuthorsPopular();
 
   const [imageIndex, setImageIndex] = useState<number>(0);
 
   const initialLoad =
-    (recommendedBooks.isPending && !recommendedBooks.data) ||
+    (recommendedBooksQuery.isPending && !recommendedBooksQuery.data) ||
     (popularAuthors.isPending && !popularAuthors.data);
 
-  const isError =
-    (recommendedBooks.isError && !recommendedBooks.data) ||
-    (popularAuthors.isError && !popularAuthors.data);
+  const isError = recommendedBooksQuery.isError || popularAuthors.isError;
 
   if (initialLoad) {
     return <LoadingPage />;
@@ -36,15 +34,18 @@ export const HomePage = () => {
   }
 
   const handleLoadMore = () => {
-    if (!recommendedBooks.isFetchingNextPage && recommendedBooks.hasNextPage) {
-      recommendedBooks.fetchNextPage();
+    if (
+      !recommendedBooksQuery.isFetchingNextPage &&
+      recommendedBooksQuery.hasNextPage
+    ) {
+      recommendedBooksQuery.fetchNextPage();
     }
   };
 
   const popularAuthorsData = popularAuthors.data?.data.authors ?? [];
 
-  const recommendedBooksData =
-    recommendedBooks.data?.pages.flatMap((page) => page.data.books) ?? [];
+  const recommendedBooksQueryData =
+    recommendedBooksQuery.data?.pages.flatMap((page) => page.data.books) ?? [];
 
   return (
     <Section>
@@ -99,23 +100,23 @@ export const HomePage = () => {
           </span>
 
           <div className='grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 md:gap-5'>
-            {recommendedBooksData.map((book) => (
+            {recommendedBooksQueryData.map((book) => (
               <BookBriefCard key={'book-' + book.id} id={book.id} />
             ))}
           </div>
 
-          {recommendedBooks.isPending && (
+          {recommendedBooksQuery.isFetchingNextPage && (
             <div className='col-span-2 flex items-center justify-center sm:col-span-3 md:col-span-5'>
               <LoadingSpinner />
             </div>
           )}
 
           {/* Load More Button */}
-          {recommendedBooks.hasNextPage && (
+          {recommendedBooksQuery.hasNextPage && (
             <div className='flex w-full items-center justify-center'>
               <Button
                 onClick={handleLoadMore}
-                disabled={recommendedBooks.isPending}
+                disabled={recommendedBooksQuery.isFetchingNextPage}
                 variant='transparent'
                 className='mx-auto h-10 max-w-50 md:h-12'
               >

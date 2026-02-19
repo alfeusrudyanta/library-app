@@ -1,13 +1,29 @@
 import { useGetBook } from '@/hook/use-books';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type BookBriefCardProps = {
   id: number;
 };
 
 export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
-  const { data } = useGetBook(id);
+  const { data, isPending } = useGetBook(id);
+
+  if (!data && isPending) {
+    return (
+      <div className='flex flex-col gap-2'>
+        {/* Category */}
+        <Skeleton className='h-5 w-20' />
+
+        {/* Title */}
+        <Skeleton className='h-5 w-40 md:w-52' />
+
+        {/* Author */}
+        <Skeleton className='h-4 w-28 md:w-36' />
+      </div>
+    );
+  }
 
   const imgSrc = data?.data.coverImage || '/images/book-no-cover.jpg';
 
