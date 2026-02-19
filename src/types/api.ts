@@ -53,11 +53,6 @@ export type PaginatedAuthors<T> = {
   pagination: Pagination;
 };
 
-export type PaginatedCategories<T> = {
-  categories: T[];
-  pagination: Pagination;
-};
-
 export type PaginatedReviews<T> = {
   reviews: T[];
   pagination: Pagination;

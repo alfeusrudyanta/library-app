@@ -11,6 +11,7 @@ import { LoadingPage } from '@/components/page/loading-page';
 import { ErrorPage } from '@/components/page/error-page';
 import { BookBriefCard } from '@/components/shared/book-brief-card';
 import { AuthorCard } from './components/author-card';
+import { LoadingSpinner } from '@/components/shared/loading-spinner';
 
 export const HomePage = () => {
   const recommendedBooks = useGetBooksRecommended({ by: 'popular' });
@@ -102,6 +103,12 @@ export const HomePage = () => {
               <BookBriefCard key={'book-' + book.id} id={book.id} />
             ))}
           </div>
+
+          {recommendedBooks.isPending && (
+            <div className='col-span-2 flex items-center justify-center sm:col-span-3 md:col-span-5'>
+              <LoadingSpinner />
+            </div>
+          )}
 
           {/* Load More Button */}
           {recommendedBooks.hasNextPage && (

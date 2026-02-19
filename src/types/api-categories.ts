@@ -1,6 +1,6 @@
-import type { ApiResponse, Category, PaginatedCategories } from '@/types/api';
+import type { ApiResponse, Category } from '@/types/api';
 
-export type GetCategories = ApiResponse<PaginatedCategories<Category>>;
+export type GetCategories = ApiResponse<{ categories: Category[] }>;
 
 export type PostCategoryRequest = { name: string };
 export type PostCategoryResponse = ApiResponse<{

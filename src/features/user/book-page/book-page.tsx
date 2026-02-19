@@ -28,7 +28,7 @@ export const BookPage = () => {
     return <LoadingPage />;
   }
 
-  if (bookDetail.isError || bookRecommendation.isError) {
+  if (bookDetail.isError || bookRecommendation.isError || bookReview.isError) {
     return <ErrorPage />;
   }
 
