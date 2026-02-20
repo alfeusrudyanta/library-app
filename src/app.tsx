@@ -59,6 +59,7 @@ export const App = () => {
           <Route element={<AdminRoute />}>
             <Route path='/admin' element={<AdminPage />} />
             <Route path='/add-book' element={<AddBookPage />} />
+            <Route path='/add-book' element={<AddBookPage />} />
             <Route path='/edit-book' element={<EditBookPage />} />
           </Route>
         </Route>

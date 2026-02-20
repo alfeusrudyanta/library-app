@@ -3,10 +3,16 @@ import { queryClient } from '@/lib/query-client';
 import type {
   GetAdminBooksParams,
   GetAdminLoansParams,
+  GetAdminUsersParamsRequest,
   PatchAdminLoansRequest,
   PostAdminLoansRequest,
 } from '@/types/api-admin';
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  keepPreviousData,
+} from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 export const adminBooksKeys = {
@@ -17,7 +23,8 @@ export const adminBooksKeys = {
 
 export const adminUsersKeys = {
   all: ['admin-users'] as const,
-  list: (q?: string) => [...adminUsersKeys.all, q || undefined] as const,
+  list: (params: GetAdminUsersParamsRequest) =>
+    [...adminUsersKeys.all, params || params] as const,
 };
 
 export const adminLoansKeys = {
@@ -127,23 +134,17 @@ export const useGetAdminOverview = () => {
   });
 };
 
-export const useGetAdminUsers = (q: string) => {
-  return useInfiniteQuery({
-    initialPageParam: 1,
-    queryKey: adminUsersKeys.list(q),
+export const useGetAdminUsers = (params: GetAdminUsersParamsRequest) => {
+  const { q, page, limit = 10 } = params;
 
-    queryFn: ({ pageParam }) => {
-      const params = {
+  return useQuery({
+    queryKey: adminUsersKeys.list({ q, page, limit }),
+    queryFn: () =>
+      apiAdmin.getAdminUsers({
         q,
-        page: pageParam,
-        limit: 10,
-      };
-
-      return apiAdmin.getAdminUsers(params);
-    },
-    getNextPageParam: (lastPage) => {
-      const { page, totalPages } = lastPage.data.pagination;
-      return page < totalPages ? page + 1 : undefined;
-    },
+        page,
+        limit,
+      }),
+    placeholderData: keepPreviousData,
   });
 };

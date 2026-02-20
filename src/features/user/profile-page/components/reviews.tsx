@@ -2,7 +2,7 @@ import { useGetMeReviews } from '@/hook/use-me';
 import dayjs from 'dayjs';
 import { Search, Star } from 'lucide-react';
 import { useState } from 'react';
-import { ProfileSkeleton } from './profile-skeleton';
+import { SkeletonWithItems } from '@/components/shared/temporary-skeleton';
 import type { ReviewCardProps } from '../types';
 import { BookCartCard } from '@/components/shared/book-cart-card';
 
@@ -23,7 +23,7 @@ export const Reviews = () => {
   };
 
   if (!data && isPending) {
-    return <ProfileSkeleton />;
+    return <SkeletonWithItems />;
   }
 
   if (isError) {

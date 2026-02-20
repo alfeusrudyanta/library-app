@@ -1,6 +1,12 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
-export const ProfileSkeleton = () => {
+type TemporarySkeletonProps = {
+  children: React.ReactNode;
+};
+
+export const TemporarySkeleton: React.FC<TemporarySkeletonProps> = ({
+  children,
+}) => {
   return (
     <div className='flex flex-col gap-3.75 md:gap-6'>
       {/* Title */}
@@ -16,6 +22,14 @@ export const ProfileSkeleton = () => {
         ))}
       </div>
 
+      {children}
+    </div>
+  );
+};
+
+export const SkeletonWithItems = () => {
+  return (
+    <TemporarySkeleton>
       {/* Book List */}
       <div className='flex flex-col gap-3.75 md:gap-4'>
         {Array.from({ length: 3 }).map((_, i) => (
@@ -35,6 +49,6 @@ export const ProfileSkeleton = () => {
           </div>
         ))}
       </div>
-    </div>
+    </TemporarySkeleton>
   );
 };

@@ -18,7 +18,7 @@ import { useInView } from 'react-intersection-observer';
 import { LoadingSpinner } from '@/components/shared/loading-spinner';
 import { usePostReview } from '@/hook/use-review';
 import { BookCartCard } from '@/components/shared/book-cart-card';
-import { ProfileSkeleton } from './profile-skeleton';
+import { SkeletonWithItems } from '@/components/shared/temporary-skeleton';
 
 export const BorrowedList = () => {
   const { ref, inView } = useInView();
@@ -55,7 +55,7 @@ export const BorrowedList = () => {
   };
 
   if (!data && isPending) {
-    return <ProfileSkeleton />;
+    return <SkeletonWithItems />;
   }
 
   if (isError) return;
