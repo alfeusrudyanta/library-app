@@ -7,9 +7,9 @@ import { useGetReviewsBook } from '@/hook/use-review';
 import { Star } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { ReviewCard } from './components/review-card';
-import { BookInfo } from './components/book-info';
 import { Section } from '@/components/shared/section';
 import { LoadingSpinner } from '@/components/shared/loading-spinner';
+import { BookInfo } from '@/components/shared/book-info';
 
 export const BookPage = () => {
   const { id } = useParams();

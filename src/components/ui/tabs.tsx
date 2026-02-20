@@ -66,7 +66,7 @@ function TabsTrigger({
       data-slot='tabs-trigger'
       className={cn(
         'h-10 w-full rounded-xl py-1 tracking-[-0.03em] whitespace-nowrap transition-all data-[state=active]:tracking-[-0.02em]',
-        'text-sm-medium md:text-md-medium md:data-[state=active]:text-md-bold data-[state=active]:text-sm-bold text-neutral-600 data-[state=active]:bg-white data-[state=active]:text-neutral-950',
+        'text-sm-medium md:text-md-medium md:data-[state=active]:text-md-bold data-[state=active]:text-sm-bold text-neutral-600! data-[state=active]:bg-white data-[state=active]:text-neutral-950!',
         'data-[state=active]:shadow-[0_0_20px_0_#CBCACA40]',
         'cursor-pointer',
         className

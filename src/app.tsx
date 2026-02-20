@@ -19,6 +19,7 @@ import { MyCartPage } from '@/features/user/my-cart-page';
 import { SuccessPage } from '@/features/user/success-page';
 import { ProfilePage } from '@/features/user/profile-page';
 import { CheckoutPage } from '@/features/user/checkout-page';
+import { PreviewPage } from '@/features/admin/preview-page';
 
 export const App = () => {
   return (
@@ -37,7 +38,9 @@ export const App = () => {
         {/* User */}
         <Route element={<HeaderLayout />}>
           {/* Home */}
-          <Route path='/' element={<HomePage />} />
+          <Route element={<FooterLayout />}>
+            <Route path='/' element={<HomePage />} />
+          </Route>
 
           {/* Other */}
           <Route element={<UserRoute />}>
@@ -59,8 +62,8 @@ export const App = () => {
           <Route element={<AdminRoute />}>
             <Route path='/admin' element={<AdminPage />} />
             <Route path='/add-book' element={<AddBookPage />} />
-            <Route path='/add-book' element={<AddBookPage />} />
-            <Route path='/edit-book' element={<EditBookPage />} />
+            <Route path='/preview/:id' element={<PreviewPage />} />
+            <Route path='/edit-book/:id' element={<EditBookPage />} />
           </Route>
         </Route>
       </Routes>

@@ -12,7 +12,7 @@ import type { LoanStatusParams } from '@/types/api';
 import dayjs from 'dayjs';
 import { Dot, Search, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { LoanStatus } from '../constant';
+import { LOAN_STATUS } from '../constant';
 import type { LoanedBook } from '../types';
 import { useInView } from 'react-intersection-observer';
 import { LoadingSpinner } from '@/components/shared/loading-spinner';
@@ -89,7 +89,7 @@ export const BorrowedList = () => {
 
       {/* Book List */}
       <div className='flex items-center gap-2 overflow-x-auto md:gap-3'>
-        {LoanStatus.map((status) => (
+        {LOAN_STATUS.map((status) => (
           <Button
             variant='transparent'
             key={status}

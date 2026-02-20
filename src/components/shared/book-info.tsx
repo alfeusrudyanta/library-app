@@ -41,7 +41,7 @@ export const BookInfo: React.FC<BookCardProps> = ({ book }) => {
   };
 
   const handleBorrow = () => {
-    dispatch(setCheckout({ bookIds: [book.id] }));
+    dispatch(setCheckout({ bookIds: [book.id], returnDate: '' }));
     navigate('/checkout');
   };
 
