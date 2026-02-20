@@ -67,7 +67,8 @@ export const BookPage = () => {
 
               <span className='text-md-bold md:text-xl-bold tracking-[-0.02em] md:tracking-normal'>
                 {bookDetail.data.data.rating.toFixed(1)} (
-                {bookDetail.data.data.reviewCount} ulasan)
+                {bookDetail.data.data.reviewCount} review
+                {bookDetail.data.data.reviewCount > 1 && 's'})
               </span>
             </div>
           </div>

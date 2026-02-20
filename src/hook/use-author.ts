@@ -40,7 +40,7 @@ export const useGetAuthorsPopular = () => {
     queryKey: authorsKeys.popular(),
     queryFn: () => {
       const params = {
-        limit: 10,
+        limit: 4,
       };
       return apiAuthors.getAuthorsPopular(params);
     },

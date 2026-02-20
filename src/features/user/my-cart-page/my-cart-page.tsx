@@ -36,16 +36,23 @@ export const MyCartPage = () => {
     if (isAllSelected) {
       dispatch(clearCheckout());
     } else {
-      dispatch(setCheckout({ bookIds: cartData.map((item) => item.bookId) }));
+      dispatch(
+        setCheckout({
+          bookIds: cartData.map((item) => item.bookId),
+          returnDate: '',
+        })
+      );
     }
   };
 
   const handleSelectItem = (id: number) => {
     if (checkoutList.bookIds.includes(id)) {
       const tempCheckout = checkoutList.bookIds.filter((i) => i !== id);
-      dispatch(setCheckout({ bookIds: tempCheckout }));
+      dispatch(setCheckout({ bookIds: tempCheckout, returnDate: '' }));
     } else {
-      dispatch(setCheckout({ bookIds: [...checkoutList.bookIds, id] }));
+      dispatch(
+        setCheckout({ bookIds: [...checkoutList.bookIds, id], returnDate: '' })
+      );
     }
   };
 
@@ -62,8 +69,9 @@ export const MyCartPage = () => {
           {/* Cart List */}
           <div className='flex w-full flex-col gap-4 md:gap-6'>
             {/* Select All */}
-            <div className='flex items-center gap-4'>
+            <label htmlFor='selectAll' className='flex items-center gap-4'>
               <input
+                id='selectAll'
                 checked={isAllSelected}
                 onChange={handleSelectAll}
                 type='checkbox'
@@ -73,7 +81,7 @@ export const MyCartPage = () => {
               <span className='text-md-semibold tracking-[-0.02em]'>
                 Select All
               </span>
-            </div>
+            </label>
 
             {/* Cart Items */}
             <div className='flex flex-col gap-4 md:gap-6'>
@@ -97,8 +105,8 @@ export const MyCartPage = () => {
               ))}
 
               {cartData.length === 0 && (
-                <span className='text-md-semibold md:text-lg-semibold text-center text-neutral-600'>
-                  Your cart is empty
+                <span className='text-md-semibold md:text-lg-semibold text-neutral-600'>
+                  Your cart is empty. Start adding books to borrow.
                 </span>
               )}
             </div>

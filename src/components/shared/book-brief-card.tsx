@@ -8,7 +8,7 @@ type BookBriefCardProps = {
 };
 
 export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
-  const { data, isPending } = useGetBook(id);
+  const { data, isPending, isError } = useGetBook(id);
 
   if (!data && isPending) {
     return (
@@ -23,6 +23,10 @@ export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
         <Skeleton className='h-4 w-28 md:w-36' />
       </div>
     );
+  }
+
+  if (isError) {
+    return;
   }
 
   const imgSrc = data?.data.coverImage || '/images/book-no-cover.jpg';

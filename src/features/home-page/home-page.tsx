@@ -105,6 +105,12 @@ export const HomePage = () => {
             ))}
           </div>
 
+          {recommendedBooksQueryData.length === 0 && (
+            <span className='text-md-semibold md:text-lg-semibold 4 text-center text-neutral-600'>
+              No book(s) found.
+            </span>
+          )}
+
           {recommendedBooksQuery.isFetchingNextPage && (
             <div className='col-span-2 flex items-center justify-center sm:col-span-3 md:col-span-5'>
               <LoadingSpinner />
@@ -134,6 +140,12 @@ export const HomePage = () => {
             {popularAuthorsData.map((author) => (
               <AuthorCard key={'author-' + author.id} author={author} />
             ))}
+
+            {popularAuthorsData.length === 0 && (
+              <span className='text-md-semibold md:text-lg-semibold col-span-1 text-center text-neutral-600 md:col-span-4'>
+                No author(s) found.
+              </span>
+            )}
           </div>
         </div>
       </div>

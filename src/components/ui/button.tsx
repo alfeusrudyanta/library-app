@@ -10,9 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary-300 hover:bg-primary-300/90 text-neutral-25! text-sm-bold md:text-md-bold',
+          'bg-primary-300 hover:bg-primary-300/90 disabled:bg-primary-300/50 text-neutral-25! text-sm-bold md:text-md-bold',
         transparent:
-          'border border-neutral-300 hover:bg-primary-100 text-neutral-950 text-sm-bold md:text-md-bold',
+          'border border-neutral-300 hover:bg-primary-100 text-neutral-950 text-sm-bold md:text-md-bold disabled:text-neutral-950/50',
       },
       size: {
         default: 'h-12 px-4 w-full',

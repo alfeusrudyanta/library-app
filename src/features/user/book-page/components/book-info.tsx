@@ -7,6 +7,9 @@ import {
   useGetCart,
   usePostCartItem,
 } from '@/hook/use-cart';
+import { useGetMeLoans } from '@/hook/use-me';
+import { useDispatch } from 'react-redux';
+import { setCheckout } from '@/store/slices/checkout-slice';
 
 type BookCardProps = {
   book: BookDetail & {
@@ -16,9 +19,11 @@ type BookCardProps = {
 
 export const BookInfo: React.FC<BookCardProps> = ({ book }) => {
   const navigate = useNavigate();
+  const bookLoansQuery = useGetMeLoans();
   const addToCart = usePostCartItem();
   const removeFromCart = useDeleteCartItem();
   const cartItem = useGetCart();
+  const dispatch = useDispatch();
 
   const inCart = cartItem.data?.data.items.some((i) => i.bookId === book.id);
   const cartItemId =
@@ -36,10 +41,17 @@ export const BookInfo: React.FC<BookCardProps> = ({ book }) => {
   };
 
   const handleBorrow = () => {
+    dispatch(setCheckout({ bookIds: [book.id] }));
     navigate('/checkout');
   };
 
   const imgSrc = book.coverImage || '/images/book-no-cover.jpg';
+  const inLoan =
+    bookLoansQuery.data?.pages.some((page) =>
+      page.data.loans.some(
+        (loan) => loan.bookId === book.id && loan.status === 'BORROWED'
+      )
+    ) ?? false;
 
   return (
     <div className='flex flex-col justify-center gap-9 md:flex-row md:justify-start'>
@@ -128,17 +140,22 @@ export const BookInfo: React.FC<BookCardProps> = ({ book }) => {
         <div className='fixed bottom-0 left-0 flex w-full items-center justify-center gap-3 border-none bg-white p-4 shadow-[0_0_20px_0_#CBCACA40] md:static md:justify-start md:p-0 md:shadow-none'>
           <Button
             onClick={handleCart}
-            disabled={addToCart.isPending || removeFromCart.isPending}
+            disabled={
+              addToCart.isPending ||
+              removeFromCart.isPending ||
+              book.availableCopies === 0 ||
+              inLoan
+            }
             variant='transparent'
-            className='h-10 max-w-50 md:h-12'
+            className='h-10 max-w-50 flex-1 md:h-12'
           >
             {inCart ? 'Remove Book' : 'Add to Cart'}
           </Button>
 
           <Button
             onClick={handleBorrow}
-            disabled={book.availableCopies <= 0}
-            className='h-10 max-w-50 md:h-12'
+            disabled={book.availableCopies === 0 || inLoan}
+            className='h-10 max-w-50 flex-1 md:h-12'
           >
             Borrow&nbsp;Book
           </Button>

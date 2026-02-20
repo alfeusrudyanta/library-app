@@ -1,15 +1,37 @@
 import { useGetBook } from '@/hook/use-books';
 import { Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCheckout, setCheckout } from '@/store/slices/checkout-slice';
+import { useEffect } from 'react';
+import type { AxiosError } from 'axios';
 
 type BookCartCardProps = {
   bookId: number;
 };
 
 export const BookCartCard: React.FC<BookCartCardProps> = ({ bookId }) => {
-  const { data, isPending } = useGetBook(bookId);
+  const dispatch = useDispatch();
+  const checkoutIds = useSelector(selectCheckout).bookIds;
+
+  const { data, isPending, isError, error } = useGetBook(bookId);
 
   const imgSrc = data?.data.coverImage || '/images/book-no-cover.jpg';
+
+  useEffect(() => {
+    if (!isError) return;
+
+    const axiosError = error as AxiosError;
+
+    if (axiosError?.response?.status === 400) {
+      dispatch(
+        setCheckout({
+          bookIds: checkoutIds.filter((id) => id !== bookId),
+          returnDate: '',
+        })
+      );
+    }
+  }, [isError, error, bookId, checkoutIds, dispatch]);
 
   if (!data && isPending) {
     return (
@@ -24,6 +46,10 @@ export const BookCartCard: React.FC<BookCartCardProps> = ({ bookId }) => {
         <Skeleton className='h-4 w-28 md:w-36' />
       </div>
     );
+  }
+
+  if (isError) {
+    return null;
   }
 
   return (

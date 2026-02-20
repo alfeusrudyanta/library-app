@@ -3,10 +3,12 @@ import type { RootState } from '../store';
 
 type CheckoutSlice = {
   bookIds: number[];
+  returnDate: string;
 };
 
 const initialState: CheckoutSlice = {
   bookIds: [],
+  returnDate: '',
 };
 
 const checkoutSlice = createSlice({

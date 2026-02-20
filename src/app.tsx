@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import { AuthLayout } from '@/components/layout/auth-layout';
-import { AdminLayout } from '@/components/layout/admin-layout';
-import { UserLayout } from '@/components/layout/user-layout';
+import { HeaderLayout } from '@/components/layout/header-layout';
+import { FooterLayout } from '@/components/layout/footer-layout';
 import { PublicRoute } from '@/lib/route/public-route';
 import { AdminRoute } from '@/lib/route/admin-route';
 import { UserRoute } from '@/lib/route/user-route';
@@ -27,33 +27,36 @@ export const App = () => {
 
       <Routes>
         {/* Auth */}
-        <Route element={<PublicRoute />}>
-          <Route element={<AuthLayout />}>
+        <Route element={<AuthLayout />}>
+          <Route element={<PublicRoute />}>
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
           </Route>
         </Route>
 
         {/* User */}
-        <Route element={<UserLayout />}>
+        <Route element={<HeaderLayout />}>
           {/* Home */}
           <Route path='/' element={<HomePage />} />
 
           {/* Other */}
           <Route element={<UserRoute />}>
-            <Route path='/book/:id' element={<BookPage />} />
-            <Route path='/category' element={<CategoryPage />} />
-            <Route path='/author/:id' element={<AuthorPage />} />
-            <Route path='/my-cart' element={<MyCartPage />} />
-            <Route path='/checkout' element={<CheckoutPage />} />
+            <Route element={<FooterLayout />}>
+              <Route path='/book/:id' element={<BookPage />} />
+              <Route path='/category' element={<CategoryPage />} />
+              <Route path='/author/:id' element={<AuthorPage />} />
+              <Route path='/my-cart' element={<MyCartPage />} />
+              <Route path='/checkout' element={<CheckoutPage />} />
+              <Route path='/profile' element={<ProfilePage />} />
+            </Route>
+
             <Route path='/success' element={<SuccessPage />} />
-            <Route path='/profile' element={<ProfilePage />} />
           </Route>
         </Route>
 
         {/* Admin */}
-        <Route element={<AdminRoute />}>
-          <Route element={<AdminLayout />}>
+        <Route element={<HeaderLayout />}>
+          <Route element={<AdminRoute />}>
             <Route path='/admin' element={<AdminPage />} />
             <Route path='/add-book' element={<AddBookPage />} />
             <Route path='/edit-book' element={<EditBookPage />} />

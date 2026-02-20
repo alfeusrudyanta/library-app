@@ -51,6 +51,12 @@ export const AuthorPage = () => {
 
           <div ref={ref} />
 
+          {authorBooksQuery.length === 0 && (
+            <span className='text-md-semibold md:text-lg-semibold col-span-2 text-neutral-600 sm:col-span-3 md:col-span-5'>
+              This author doesn’t have any books available yet.
+            </span>
+          )}
+
           {isFetchingNextPage && (
             <div className='col-span-2 flex items-center justify-center sm:col-span-3 md:col-span-5'>
               <LoadingSpinner />
