@@ -20,7 +20,7 @@ export type GetMeResponse = ApiResponse<{
 export type PatchMeParamsRequest = {
   name: string;
   phone: string;
-  profilePhoto: string;
+  profilePhoto?: File;
 };
 
 export type PatchMeResponse = ApiResponse<{ profile: User }>;

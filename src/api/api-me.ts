@@ -17,10 +17,20 @@ export const apiMe = {
   },
 
   patchMe: async (data: PatchMeParamsRequest): Promise<PatchMeResponse> => {
-    const response = await AxiosInstance.patch<PatchMeResponse>(
-      '/api/me',
-      data
-    );
+    const fd = new FormData();
+
+    fd.append('name', data.name);
+    fd.append('phone', data.phone);
+
+    if (data.profilePhoto) {
+      fd.append('profilePhoto', data.profilePhoto);
+    }
+
+    const response = await AxiosInstance.patch<PatchMeResponse>('/api/me', fd, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     return response.data;
   },

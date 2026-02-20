@@ -8,9 +8,13 @@ import type { AxiosError } from 'axios';
 
 type BookCartCardProps = {
   bookId: number;
+  children?: React.ReactNode;
 };
 
-export const BookCartCard: React.FC<BookCartCardProps> = ({ bookId }) => {
+export const BookCartCard: React.FC<BookCartCardProps> = ({
+  bookId,
+  children,
+}) => {
   const dispatch = useDispatch();
   const checkoutIds = useSelector(selectCheckout).bookIds;
 
@@ -83,6 +87,8 @@ export const BookCartCard: React.FC<BookCartCardProps> = ({ bookId }) => {
             {data?.data.author.name}
           </span>
         </Link>
+
+        {children}
       </div>
     </div>
   );

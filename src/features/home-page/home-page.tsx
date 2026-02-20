@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CircleDot } from 'lucide-react';
 import { useState } from 'react';
-import { ImageSrc, GenreMenu } from './constant';
+import { IMG_SRC, GENRE_MENU } from './constant';
 import { Link } from 'react-router-dom';
 import { useGetBooksRecommended } from '@/hook/use-books';
 import { useGetAuthorsPopular } from '@/hook/use-author';
@@ -53,13 +53,13 @@ export const HomePage = () => {
         {/* Image */}
         <div className='flex flex-col items-center gap-2.5 md:gap-4'>
           <img
-            src={ImageSrc[imageIndex]}
+            src={IMG_SRC[imageIndex]}
             alt='Welcome to Booky'
             className='w-full'
           />
 
           <div className='flex gap-1 md:gap-1.5'>
-            {ImageSrc.map((_, index) => (
+            {IMG_SRC.map((_, index) => (
               <CircleDot
                 key={'image ' + index}
                 onClick={() => setImageIndex(index)}
@@ -74,7 +74,7 @@ export const HomePage = () => {
 
         {/* Genre List */}
         <div className='grid grid-cols-3 items-center gap-3 md:grid-cols-6 md:gap-4'>
-          {GenreMenu.map((genre) => (
+          {GENRE_MENU.map((genre) => (
             <Link to='/category' key={genre.name} className='group h-full'>
               <div className='flex h-full flex-col gap-3 rounded-2xl bg-white p-2 shadow-[0_0_20px_0_#CBCACA40] transition-all md:p-3'>
                 <div className='flex w-full items-center justify-center gap-1.5 rounded-xl bg-[#E0ECFF] p-1.5'>

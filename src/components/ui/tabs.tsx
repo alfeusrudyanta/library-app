@@ -15,7 +15,7 @@ function Tabs({
       data-orientation={orientation}
       orientation={orientation}
       className={cn(
-        'group/tabs flex items-center gap-4 data-[orientation=horizontal]:flex-col md:gap-6',
+        'group/tabs flex gap-3.75 data-[orientation=horizontal]:flex-col md:gap-6',
         className
       )}
       {...props}
@@ -29,7 +29,6 @@ const tabsListVariants = cva(
     variants: {
       variant: {
         default: 'bg-muted',
-        line: 'gap-1 bg-transparent',
       },
     },
     defaultVariants: {
@@ -50,7 +49,7 @@ function TabsList({
       data-variant={variant}
       className={cn(
         tabsListVariants({ variant }),
-        'flex h-10 items-center rounded-2xl bg-neutral-900',
+        'flex h-14 w-full items-center gap-2 rounded-2xl bg-neutral-100 p-2 md:max-w-139.25',
         className
       )}
       {...props}
@@ -66,8 +65,9 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot='tabs-trigger'
       className={cn(
-        'h-10 rounded-2xl px-10 py-1 whitespace-nowrap transition-all',
-        'text-sm-regular md:text-md-regular md:data-[state=active]:text-md-semibold data-[state=active]:text-sm-semibold data-[state=active]:bg-white data-[state=active]:text-neutral-950',
+        'h-10 w-full rounded-xl py-1 tracking-[-0.03em] whitespace-nowrap transition-all data-[state=active]:tracking-[-0.02em]',
+        'text-sm-medium md:text-md-medium md:data-[state=active]:text-md-bold data-[state=active]:text-sm-bold text-neutral-600 data-[state=active]:bg-white data-[state=active]:text-neutral-950',
+        'data-[state=active]:shadow-[0_0_20px_0_#CBCACA40]',
         'cursor-pointer',
         className
       )}

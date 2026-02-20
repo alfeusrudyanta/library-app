@@ -1,12 +1,12 @@
 import type { GenreMenuType } from './types';
 
-export const ImageSrc: string[] = [
+export const IMG_SRC: string[] = [
   '/images/home-cover-img.png',
   '/images/home-cover-img.png',
   '/images/home-cover-img.png',
 ];
 
-export const GenreMenu: GenreMenuType[] = [
+export const GENRE_MENU: GenreMenuType[] = [
   {
     name: 'Fiction',
     link: '/icons/home-fiction.svg',
