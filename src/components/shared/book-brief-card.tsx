@@ -35,7 +35,7 @@ export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
     <div className='group flex flex-col overflow-hidden rounded-xl bg-white shadow-[0_0_20px_0_#CBCACA40]'>
       {/* Images */}
       <Link to={`/book/${id}`}>
-        <div className='flex aspect-224/336 items-center justify-between overflow-hidden'>
+        <div className='relative flex aspect-224/336 items-center justify-between overflow-hidden'>
           <img
             src={imgSrc}
             alt={data?.data.title}
@@ -43,6 +43,10 @@ export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
             loading='lazy'
             className='size-full object-cover object-center transition-all group-hover:scale-105'
           />
+
+          <span className='text-xs-regular md:text-sm-regular bg-accent-green text-neutral-25 absolute top-4 right-0 rounded-l-full px-4'>
+            Available copies: {data.data.availableCopies}
+          </span>
         </div>
       </Link>
 
