@@ -2,6 +2,7 @@ import { useGetBook } from '@/hook/use-books';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 
 type BookBriefCardProps = {
   id: number;
@@ -44,8 +45,14 @@ export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
             className='size-full object-cover object-center transition-all group-hover:scale-105'
           />
 
-          <span className='text-xs-regular md:text-sm-regular bg-accent-green text-neutral-25 absolute top-4 right-0 rounded-l-full px-4'>
-            Available copies: {data.data.availableCopies}
+          <span
+            className={cn(
+              'text-xs-regular md:text-sm-regular bg-accent-green text-neutral-25 absolute top-4 right-0 line-clamp-1 overflow-hidden rounded-l-full px-4',
+              data.data.availableCopies === 0 && 'bg-accent-red'
+            )}
+          >
+            {data.data.availableCopies === 0 ? 'No' : data.data.availableCopies}{' '}
+            {data.data.availableCopies <= 1 ? 'copy' : 'copies'} available
           </span>
         </div>
       </Link>
