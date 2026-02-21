@@ -5,7 +5,7 @@ import type { BookDetail, BookStatusParams } from '@/types/api';
 import { Search, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { STATUS } from '../constants';
+import { BOOK_STATUS } from '../constants';
 import { cn } from '@/lib/utils';
 import { LoadingSpinner } from '@/components/shared/loading-spinner';
 import { Link } from 'react-router-dom';
@@ -48,7 +48,7 @@ export const BookList = () => {
     setQ(temporaryQ);
   };
 
-  const hanldeKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleClick();
     }
@@ -80,7 +80,7 @@ export const BookList = () => {
           type='text'
           value={temporaryQ}
           onChange={(e) => setTemporaryQ(e.currentTarget.value)}
-          onKeyDown={hanldeKeyDown}
+          onKeyDown={handleKeyDown}
           placeholder='Search book'
           className='h-11 w-full rounded-full border border-neutral-300 p-4 pl-10.5 md:h-12 md:max-w-150'
         />
@@ -93,7 +93,7 @@ export const BookList = () => {
 
       {/* Book List */}
       <div className='flex items-center gap-2 overflow-x-auto md:gap-3'>
-        {STATUS.map((s) => (
+        {BOOK_STATUS.map((s) => (
           <Button
             variant='transparent'
             key={s}

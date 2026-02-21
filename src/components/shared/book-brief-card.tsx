@@ -39,6 +39,7 @@ export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
           <img
             src={imgSrc}
             alt={data?.data.title}
+            onError={(e) => (e.currentTarget.src = '/images/book-no-cover.jpg')}
             loading='lazy'
             className='size-full object-cover object-center transition-all group-hover:scale-105'
           />

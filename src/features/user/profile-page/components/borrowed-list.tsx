@@ -48,7 +48,7 @@ export const BorrowedList = () => {
     setQ(temporaryQ);
   };
 
-  const hanldeKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleClick();
     }
@@ -76,7 +76,7 @@ export const BorrowedList = () => {
           type='text'
           value={temporaryQ}
           onChange={(e) => setTemporaryQ(e.currentTarget.value)}
-          onKeyDown={hanldeKeyDown}
+          onKeyDown={handleKeyDown}
           placeholder='Search book'
           className='h-11 w-full rounded-full border border-neutral-300 p-4 pl-10.5 md:h-12 md:max-w-150'
         />
