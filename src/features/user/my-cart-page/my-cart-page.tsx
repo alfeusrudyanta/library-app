@@ -113,7 +113,7 @@ export const MyCartPage = () => {
           </div>
 
           {/* Desktop Summary */}
-          <div className='fixed bottom-0 left-0 flex w-full items-center justify-between bg-white px-4 shadow-[0_0_20px_0_#CBCACA40] md:static md:max-w-79.5 md:flex-col md:items-stretch md:justify-start md:gap-6 md:p-5'>
+          <div className='fixed bottom-0 left-0 z-10 flex w-full items-center justify-between bg-white px-4 shadow-[0_0_20px_0_#CBCACA40] md:static md:max-w-79.5 md:flex-col md:items-stretch md:justify-start md:gap-6 md:p-5'>
             <span className='text-xl-bold hidden tracking-[-0.02em] md:block'>
               Loan Summary
             </span>

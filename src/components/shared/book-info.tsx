@@ -137,7 +137,7 @@ export const BookInfo: React.FC<BookCardProps> = ({ book }) => {
         </div>
 
         {/* Cart */}
-        <div className='fixed bottom-0 left-0 flex w-full items-center justify-center gap-3 border-none bg-white p-4 shadow-[0_0_20px_0_#CBCACA40] md:static md:justify-start md:p-0 md:shadow-none'>
+        <div className='fixed bottom-0 left-0 z-10 flex w-full items-center justify-center gap-3 border-none bg-white p-4 shadow-[0_0_20px_0_#CBCACA40] md:static md:justify-start md:p-0 md:shadow-none'>
           <Button
             onClick={handleCart}
             disabled={
