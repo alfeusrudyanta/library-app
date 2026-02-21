@@ -59,3 +59,7 @@ export const useLogout = () => {
     navigate('/login');
   };
 };
+
+export const useIsLoggedIn = () => {
+  return Boolean(Cookies.get('token'));
+};

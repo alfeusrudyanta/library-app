@@ -15,6 +15,7 @@ export const ProfilePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const tabParam = searchParams.get('tab') as Options | null;
+
   const tab: Options = VALID_TABS.includes(tabParam!) ? tabParam! : 'profile';
 
   if (!data || isPending) {
@@ -32,7 +33,7 @@ export const ProfilePage = () => {
   return (
     <Section>
       <div className='flex flex-col gap-3.75 md:gap-6'>
-        <Tabs defaultValue={tab} onValueChange={handleTabChange}>
+        <Tabs value={tab} onValueChange={handleTabChange}>
           <TabsList>
             <TabsTrigger value='profile'>Profile</TabsTrigger>
             <TabsTrigger value='borrowed-list'>Borrowed List</TabsTrigger>

@@ -85,7 +85,7 @@ export const HomePage = () => {
                   />
                 </div>
 
-                <span className='text-xs-semibold md:text-md-semibold group-hover:text-primary-300 tracking-[-0.02em]'>
+                <span className='text-xs-semibold md:text-md-semibold group-hover:text-primary-300 overflow-hidden tracking-[-0.02em]'>
                   {genre.name}
                 </span>
               </div>

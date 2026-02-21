@@ -1,6 +1,7 @@
 import { apiCart } from '@/api/api-cart';
 import { queryClient } from '@/lib/query-client';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
 import { toast } from 'sonner';
 
 export const cartKeys = {
@@ -12,6 +13,7 @@ export const useGetCart = () => {
   return useQuery({
     queryKey: cartKeys.all,
     queryFn: () => apiCart.getCart(),
+    enabled: !!Cookies.get('token'),
   });
 };
 

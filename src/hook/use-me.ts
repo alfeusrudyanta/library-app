@@ -3,6 +3,7 @@ import { queryClient } from '@/lib/query-client';
 import type { BorrowStatus } from '@/types/api';
 import type { PatchMeParamsRequest } from '@/types/api-me';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
 import { toast } from 'sonner';
 
 export const meKeys = {
@@ -17,6 +18,7 @@ export const useGetMe = () => {
   return useQuery({
     queryKey: meKeys.profile(),
     queryFn: () => apiMe.getMe(),
+    enabled: !!Cookies.get('token'),
   });
 };
 

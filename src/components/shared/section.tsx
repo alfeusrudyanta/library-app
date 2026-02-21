@@ -4,7 +4,7 @@ type SectionProps = {
 
 export const Section: React.FC<SectionProps> = ({ children }) => {
   return (
-    <section className='mx-auto w-full max-w-360 px-4 pt-20 pb-4 md:px-30 md:pt-32 md:pb-29'>
+    <section className='mx-auto w-full max-w-360 grow px-4 pt-20 pb-4 md:px-30 md:pt-32 md:pb-29'>
       {children}
     </section>
   );
