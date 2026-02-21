@@ -3,7 +3,6 @@ import type {
   Author,
   AuthorSummary,
   BookDetail,
-  PaginatedAuthors,
   PaginatedBooks,
   PaginationParams,
 } from '@/types/api';
@@ -12,7 +11,7 @@ export type GetAuthorsParamsRequest = {
   q?: string;
 };
 
-export type GetAuthorsResponse = ApiResponse<PaginatedAuthors<Author>>;
+export type GetAuthorsResponse = ApiResponse<{ authors: Author[] }>;
 
 export type PostAuthorRequest = {
   name: string;

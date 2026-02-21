@@ -8,10 +8,10 @@ export const authorsKeys = {
   all: ['authors'] as const,
   popular: () => [...authorsKeys.all, 'popular'] as const,
   detail: (authorId: number) => [...authorsKeys.all, authorId] as const,
-  search: (q: string) => [...authorsKeys.all, q || undefined] as const,
+  search: (q?: string) => [...authorsKeys.all, q || undefined] as const,
 };
 
-export const useGetAuthors = (q: string) => {
+export const useGetAuthors = (q?: string) => {
   return useQuery({
     queryKey: authorsKeys.search(q),
     queryFn: () => {

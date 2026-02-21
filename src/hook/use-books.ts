@@ -8,6 +8,7 @@ import type {
 } from '@/types/api-books';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { adminBooksKeys } from './use-admin';
 
 export const booksKeys = {
   all: ['books'] as const,
@@ -100,6 +101,7 @@ export const useDeleteBook = (bookId: number) => {
   return useMutation({
     mutationFn: () => apiBooks.deleteBook(bookId),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: adminBooksKeys.all });
       queryClient.invalidateQueries({ queryKey: booksKeys.all });
       queryClient.invalidateQueries({
         queryKey: booksKeys.detail(bookId),

@@ -17,9 +17,6 @@ export type GetBooksParams = {
 export type GetBooksParamsRequest = GetBooksParams & PaginationParams;
 export type GetBooksResponse = ApiResponse<PaginatedBooks<BookDetail>>;
 
-export type PostAuthor =
-  | { authorId: number; authorName: never }
-  | { authorId: never; authorName: string };
 export type PostBookParamsRequest = {
   title: string;
   isbn: string;
@@ -29,7 +26,8 @@ export type PostBookParamsRequest = {
   publishedYear: number;
   totalCopies: number;
   availableCopies: number;
-} & PostAuthor;
+  authorId: number;
+};
 export type PostBookResponse = ApiResponse<
   Omit<BookDetail, 'author' | 'category'>
 >;

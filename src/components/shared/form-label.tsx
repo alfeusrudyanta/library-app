@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils';
-import type { Dispatch, SetStateAction } from 'react';
 
 type FormLabelProps = {
   name: string;
@@ -8,7 +7,7 @@ type FormLabelProps = {
   placeholder: string;
   value: string;
   disabled: boolean;
-  onChange: Dispatch<SetStateAction<string>>;
+  onChange: (value: string) => void;
   error?: string;
 };
 

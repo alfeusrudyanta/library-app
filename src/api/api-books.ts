@@ -42,10 +42,6 @@ export const apiBooks = {
       fd.append('authorId', String(data.authorId));
     }
 
-    if ('authorName' in data) {
-      fd.append('authorName', data.authorName);
-    }
-
     const response = await AxiosInstance.post<PostBookResponse>(
       '/api/books',
       fd,
