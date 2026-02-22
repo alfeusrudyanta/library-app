@@ -58,7 +58,7 @@ export const Header = () => {
 
   return (
     <div className='fixed z-10 w-full bg-white px-4 shadow-[0_0_20px_0_#CBCACA40]'>
-      <div className='mx-auto flex h-16 max-w-360 items-center justify-between gap-6 md:h-20 md:px-30'>
+      <div className='relative mx-auto flex h-16 max-w-360 items-center justify-between gap-6 md:h-20 md:px-30'>
         {/* Logo */}
         <Logo />
 
@@ -126,7 +126,9 @@ export const Header = () => {
                 alt='Profile'
                 className='size-10 rounded-full'
               />
-              <span className='text-lg font-semibold'>{profileData?.name}</span>
+              <span className='text-lg font-semibold'>
+                {profileData?.name ?? 'User'}
+              </span>
               <ChevronDown
                 className={cn(
                   'size-6 transition-transform',
@@ -151,18 +153,31 @@ export const Header = () => {
 
         {/* Profile menu */}
         {isLoggedIn && IsMenuOpen && (
-          <div className='absolute top-16 right-4 w-full translate-x-8 md:top-18.5 md:right-30 md:translate-x-375'>
+          <div className='absolute top-16 right-0 w-full max-w-46 md:top-18.5 md:right-30'>
             <div
               ref={menuRef}
               className='flex w-full max-w-[calc(100vw-32px)] flex-col gap-4 rounded-2xl bg-white p-4 shadow-[0_0_20px_0_#CBCACA40] md:max-w-46'
             >
+              {profileData?.role === 'ADMIN' && (
+                <div className='flex flex-col gap-4'>
+                  <Link to='/admin' className='group'>
+                    <button className='text-sm-semibold md:text-md-semibold group-hover:text-primary-300 cursor-pointer'>
+                      Manage Library
+                    </button>
+                  </Link>
+
+                  <div className='w-full border border-neutral-300' />
+                </div>
+              )}
+
               {PROFILE_MENU.map((menu) => (
                 <Link
                   key={menu}
                   to={`/profile?tab=${menu}`}
                   onClick={() => setIsMenuOpen(false)}
+                  className='group'
                 >
-                  <span className='text-sm-semibold md:text-md-semibold hover:text-primary-300 cursor-pointer'>
+                  <span className='text-sm-semibold md:text-md-semibold group-hover:text-primary-300 cursor-pointer'>
                     {menu.charAt(0).toUpperCase() +
                       menu.slice(1).replace('-', ' ')}
                   </span>
