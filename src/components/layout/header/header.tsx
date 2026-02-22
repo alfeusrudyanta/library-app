@@ -24,7 +24,7 @@ export const Header = () => {
 
   const [search, setSearch] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [IsMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -58,22 +58,24 @@ export const Header = () => {
 
   return (
     <div className='fixed z-10 w-full bg-white px-4 shadow-[0_0_20px_0_#CBCACA40]'>
-      <div className='relative mx-auto flex h-16 max-w-360 items-center justify-between gap-6 md:h-20 md:px-30'>
-        {/* Logo */}
+      <div className='mx-auto flex h-16 max-w-360 items-center justify-between gap-6 md:h-20 md:px-30'>
         <Logo />
 
-        {/* Search */}
         {isSearchOpen && <SearchBar search={search} setSearch={setSearch} />}
 
-        {/* Mobile close search */}
         {isMobile && isSearchOpen && (
-          <X onClick={() => setIsSearchOpen(false)} className='size-6' />
+          <X
+            onClick={() => setIsSearchOpen(false)}
+            className='size-6 cursor-pointer'
+          />
         )}
 
-        {/* Mobile icons */}
         {isMobile && !isSearchOpen && (
           <div className='flex items-center gap-4'>
-            <Search onClick={() => setIsSearchOpen(true)} className='size-6' />
+            <Search
+              onClick={() => setIsSearchOpen(true)}
+              className='size-6 cursor-pointer'
+            />
 
             <Link to='/my-cart' className='relative'>
               <img src='/icons/header-bag.svg' alt='Cart' />
@@ -83,30 +85,79 @@ export const Header = () => {
             </Link>
 
             {isLoggedIn && (
-              <button
-                ref={buttonRef}
-                onClick={() => setIsMenuOpen((p) => !p)}
-                className='flex items-center'
-              >
-                <img
-                  src='/images/author-profile.png'
-                  alt='Profile'
-                  className='size-10 rounded-full'
-                />
-              </button>
+              <div className='relative'>
+                <button
+                  ref={buttonRef}
+                  onClick={() => setIsMenuOpen((p) => !p)}
+                  className='flex cursor-pointer items-center'
+                >
+                  <img
+                    src='/images/author-profile.png'
+                    alt='Profile'
+                    className='size-10 rounded-full'
+                  />
+                </button>
+
+                {isMenuOpen && (
+                  <div
+                    ref={menuRef}
+                    className='absolute top-full right-0 z-50 mt-2 w-56 rounded-2xl bg-white p-4 shadow-[0_0_20px_0_#CBCACA40]'
+                  >
+                    {profileData?.role === 'ADMIN' && (
+                      <>
+                        <Link
+                          to='/admin'
+                          onClick={() => setIsMenuOpen(false)}
+                          className='text-sm-semibold hover:text-primary-300 block'
+                        >
+                          Manage Library
+                        </Link>
+                        <div className='my-2 border border-neutral-300' />
+                      </>
+                    )}
+
+                    {PROFILE_MENU.map((menu) => (
+                      <Link
+                        key={menu}
+                        to={`/profile?tab=${menu}`}
+                        onClick={() => setIsMenuOpen(false)}
+                        className='text-sm-semibold hover:text-primary-300 block'
+                      >
+                        {menu.charAt(0).toUpperCase() +
+                          menu.slice(1).replace('-', ' ')}
+                      </Link>
+                    ))}
+
+                    <span
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        logout();
+                      }}
+                      className='text-sm-semibold block cursor-pointer text-[#EE1D52] hover:text-red-700'
+                    >
+                      Logout
+                    </span>
+                  </div>
+                )}
+              </div>
             )}
 
-            {!isLoggedIn && !IsMenuOpen && (
-              <Menu onClick={() => setIsMenuOpen(true)} />
+            {!isLoggedIn && !isMenuOpen && (
+              <Menu
+                onClick={() => setIsMenuOpen(true)}
+                className='cursor-pointer'
+              />
             )}
 
-            {!isLoggedIn && IsMenuOpen && (
-              <X onClick={() => setIsMenuOpen(false)} />
+            {!isLoggedIn && isMenuOpen && (
+              <X
+                onClick={() => setIsMenuOpen(false)}
+                className='cursor-pointer'
+              />
             )}
           </div>
         )}
 
-        {/* Desktop Logged In */}
         {!isMobile && isLoggedIn && isSearchOpen && (
           <div className='flex items-center gap-6'>
             <Link to='/my-cart' className='relative'>
@@ -116,30 +167,73 @@ export const Header = () => {
               </span>
             </Link>
 
-            <button
-              ref={buttonRef}
-              onClick={() => setIsMenuOpen((p) => !p)}
-              className='flex cursor-pointer items-center gap-4'
-            >
-              <img
-                src='/images/author-profile.png'
-                alt='Profile'
-                className='size-10 rounded-full'
-              />
-              <span className='text-lg font-semibold'>
-                {profileData?.name ?? 'User'}
-              </span>
-              <ChevronDown
-                className={cn(
-                  'size-6 transition-transform',
-                  IsMenuOpen && 'rotate-180'
-                )}
-              />
-            </button>
+            <div className='relative'>
+              <button
+                ref={buttonRef}
+                onClick={() => setIsMenuOpen((p) => !p)}
+                className='flex cursor-pointer items-center gap-4'
+              >
+                <img
+                  src='/images/author-profile.png'
+                  alt='Profile'
+                  className='size-10 rounded-full'
+                />
+                <span className='text-lg font-semibold'>
+                  {profileData?.name ?? 'User'}
+                </span>
+                <ChevronDown
+                  className={cn(
+                    'size-6 cursor-pointer transition-transform',
+                    isMenuOpen && 'rotate-180'
+                  )}
+                />
+              </button>
+
+              {isMenuOpen && (
+                <div
+                  ref={menuRef}
+                  className='absolute top-full right-0 z-50 mt-2 w-56 rounded-2xl bg-white p-4 shadow-[0_0_20px_0_#CBCACA40]'
+                >
+                  {profileData?.role === 'ADMIN' && (
+                    <>
+                      <Link
+                        to='/admin'
+                        onClick={() => setIsMenuOpen(false)}
+                        className='text-sm-semibold hover:text-primary-300 block'
+                      >
+                        Manage Library
+                      </Link>
+                      <div className='my-2 border border-neutral-300' />
+                    </>
+                  )}
+
+                  {PROFILE_MENU.map((menu) => (
+                    <Link
+                      key={menu}
+                      to={`/profile?tab=${menu}`}
+                      onClick={() => setIsMenuOpen(false)}
+                      className='text-sm-semibold hover:text-primary-300 block'
+                    >
+                      {menu.charAt(0).toUpperCase() +
+                        menu.slice(1).replace('-', ' ')}
+                    </Link>
+                  ))}
+
+                  <span
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      logout();
+                    }}
+                    className='text-sm-semibold block cursor-pointer text-[#EE1D52] hover:text-red-700'
+                  >
+                    Logout
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
-        {/* Desktop Not Logged In */}
         {!isLoggedIn && !isMobile && isSearchOpen && (
           <div className='flex max-w-85.5 flex-1 items-center gap-3'>
             <Link to='/login' className='flex-1'>
@@ -151,56 +245,9 @@ export const Header = () => {
           </div>
         )}
 
-        {/* Profile menu */}
-        {isLoggedIn && IsMenuOpen && (
-          <div className='absolute top-16 right-0 w-full max-w-46 md:top-18.5 md:right-30'>
-            <div
-              ref={menuRef}
-              className='flex w-full max-w-[calc(100vw-32px)] flex-col gap-4 rounded-2xl bg-white p-4 shadow-[0_0_20px_0_#CBCACA40] md:max-w-46'
-            >
-              {profileData?.role === 'ADMIN' && (
-                <div className='flex flex-col gap-4'>
-                  <Link to='/admin' className='group'>
-                    <button className='text-sm-semibold md:text-md-semibold group-hover:text-primary-300 cursor-pointer'>
-                      Manage Library
-                    </button>
-                  </Link>
-
-                  <div className='w-full border border-neutral-300' />
-                </div>
-              )}
-
-              {PROFILE_MENU.map((menu) => (
-                <Link
-                  key={menu}
-                  to={`/profile?tab=${menu}`}
-                  onClick={() => setIsMenuOpen(false)}
-                  className='group'
-                >
-                  <span className='text-sm-semibold md:text-md-semibold group-hover:text-primary-300 cursor-pointer'>
-                    {menu.charAt(0).toUpperCase() +
-                      menu.slice(1).replace('-', ' ')}
-                  </span>
-                </Link>
-              ))}
-
-              <span
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  logout();
-                }}
-                className='text-sm-semibold md:text-md-semibold cursor-pointer text-[#EE1D52] hover:text-red-700'
-              >
-                Logout
-              </span>
-            </div>
-          </div>
-        )}
-
-        {/* Button Menu */}
-        {!isLoggedIn && IsMenuOpen && isMobile && (
-          <div className='absolute top-16 right-0 w-full'>
-            <div className='flex items-center gap-4 bg-white p-4'>
+        {!isLoggedIn && isMenuOpen && isMobile && (
+          <div className='absolute top-16 right-0 w-full bg-white p-4'>
+            <div className='flex items-center gap-4'>
               <Link to='/login' className='flex-1'>
                 <Button variant='transparent'>Login</Button>
               </Link>
