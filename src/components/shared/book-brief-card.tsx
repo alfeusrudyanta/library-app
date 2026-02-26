@@ -47,7 +47,7 @@ export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
 
           <span
             className={cn(
-              'text-xs-regular md:text-sm-regular bg-accent-green text-neutral-25 absolute top-4 right-0 line-clamp-1 overflow-hidden rounded-l-full px-4',
+              'text-xs-regular! bg-accent-green text-neutral-25 absolute top-4 right-0 line-clamp-1 overflow-hidden rounded-l-full px-4',
               data.data.availableCopies === 0 && 'bg-accent-red'
             )}
           >
