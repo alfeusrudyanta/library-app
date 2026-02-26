@@ -52,7 +52,7 @@ export const BookBriefCard: React.FC<BookBriefCardProps> = ({ id }) => {
             )}
           >
             {data.data.availableCopies === 0 ? 'No' : data.data.availableCopies}{' '}
-            {data.data.availableCopies <= 1 ? 'copy' : 'copies'} available
+            {data.data.availableCopies <= 1 ? 'copy' : 'copies'}
           </span>
         </div>
       </Link>
