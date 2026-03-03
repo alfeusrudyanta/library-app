@@ -51,7 +51,14 @@ export const HomePage = () => {
     <Section>
       <div className='flex flex-col gap-6 md:gap-12'>
         {/* Image */}
-        <div className='flex flex-col items-center gap-2.5 md:gap-4'>
+
+        <div className='relative flex flex-col items-center gap-2.5 md:gap-4'>
+          <div className='absolute top-2 left-2 flex size-6 items-center justify-center rounded-full bg-neutral-500 md:top-4 md:left-4 md:size-7'>
+            <span className='md:text-md-bold text-sm-bold text-neutral-25'>
+              {imageIndex + 1}
+            </span>
+          </div>
+
           <img
             src={IMG_SRC[imageIndex]}
             alt='Welcome to Booky'
