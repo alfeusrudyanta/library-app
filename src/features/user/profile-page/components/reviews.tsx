@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { SkeletonWithItems } from '@/components/shared/temporary-skeleton';
 import type { ReviewCardProps } from '../types';
 import { BookCartCard } from '@/components/shared/book-cart-card';
+import { Button } from '@/components/ui/button';
+import { useDeleteReview } from '@/hook/use-review';
 
 export const Reviews = () => {
   const [temporaryQ, setTemporaryQ] = useState<string>('');
@@ -70,12 +72,29 @@ export const Reviews = () => {
 };
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
+  const { isPending, mutate } = useDeleteReview(review.book.id);
+
+  const handleDeleteReview = () => {
+    mutate(review.id);
+  };
+
   return (
     <div className='flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-[0_0_20px_0_#CBCACA40] md:gap-5 md:p-5'>
       {/* Date */}
-      <span className='text-sm-semibold md:text-md-semibold tracking-[-0.02em]'>
-        {dayjs(review.createdAt).format('DD MMMM YYYY, HH:mm')}
-      </span>
+      <div className='flex items-center justify-between'>
+        <span className='text-sm-semibold md:text-md-semibold tracking-[-0.02em]'>
+          {dayjs(review.createdAt).format('DD MMMM YYYY, HH:mm')}
+        </span>
+
+        <Button
+          className='bg-accent-red hover:bg-accent-red/90 text-neutral-25 disabled:text-neutral-25 h-10 max-w-50 md:h-11'
+          variant='transparent'
+          disabled={isPending}
+          onClick={handleDeleteReview}
+        >
+          Delete
+        </Button>
+      </div>
 
       {/* Line */}
       <div className='w-full border border-neutral-300' />

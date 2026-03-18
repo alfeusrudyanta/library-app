@@ -3,6 +3,7 @@ import { queryClient } from '@/lib/query-client';
 import type { PostReviewRequest } from '@/types/api-reviews';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { meKeys } from './use-me';
 
 export const reviewsKeys = {
   all: ['reviews'] as const,
@@ -16,6 +17,7 @@ export const usePostReview = () => {
       queryClient.invalidateQueries({
         queryKey: reviewsKeys.book(variables.bookId),
       });
+      queryClient.invalidateQueries({ queryKey: meKeys.reviews() });
       toast.success('Review submitted');
     },
     onError: () => {
@@ -53,6 +55,7 @@ export const useDeleteReview = (bookId: number) => {
       queryClient.invalidateQueries({
         queryKey: reviewsKeys.book(bookId),
       });
+      queryClient.invalidateQueries({ queryKey: meKeys.reviews() });
       toast.success('Review deleted');
     },
     onError: () => {
